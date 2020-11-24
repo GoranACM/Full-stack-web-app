@@ -6,11 +6,19 @@ import { Employee } from './components/Employee';
 
 import Button from 'react-bootstrap/Button';
 
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 function App() {
   return (
-    <div className='container'>
-      <Employee />
-    </div>
+    <BrowserRouter>
+      <div className='container'>
+        <Switch>
+          <Route path='/' component={Home} exact />
+          <Route path='/department' component={Department} />
+          <Route path='/employee' component={Employee} />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
