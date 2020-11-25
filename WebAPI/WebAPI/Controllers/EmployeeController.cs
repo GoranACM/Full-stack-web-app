@@ -36,7 +36,9 @@ namespace WebAPI.Controllers
             {
                 DataTable table = new DataTable();
 
-                string query = "INSERT INTO dbo.Employees (EmployeeName, Department, MailID, DOJ) values ('" + emp.EmployeeName + "', '" + emp.Department + "','" + emp.MailID + "','" + emp.DOJ + "')";
+                string doj = emp.DOJ.ToString().Split(' ')[0];
+
+                string query = "INSERT INTO dbo.Employees (EmployeeName, Department, MailID, DOJ) values ('" + emp.EmployeeName + "', '" + emp.Department + "','" + emp.MailID + "','" + doj + "')";
 
                 using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["EmployeeAppDB"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))

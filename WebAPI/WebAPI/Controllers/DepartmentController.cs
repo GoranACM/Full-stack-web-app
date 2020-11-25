@@ -59,7 +59,10 @@ namespace WebAPI.Controllers
             {
                 DataTable table = new DataTable();
 
-                string query = "UPDATE dbo.Departments SET DepartmentName = '" + dep.DepartmentName + "' WHERE DepartmentID = '" + dep.DepartmentID + "'";
+                string query = @"
+                  update dbo.Departments set DepartmentName = '" + dep.DepartmentName + @"'
+                        where DepartmentID = " + dep.DepartmentID + @"
+                          ";
 
                 using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["EmployeeAppDB"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))

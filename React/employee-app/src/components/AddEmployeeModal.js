@@ -3,12 +3,20 @@ import { Modal, Button, Row, Col, Form } from 'react-bootstrap';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 
-export class AddDepartmentModal extends Component {
+export class AddEmployeeModal extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { snackbarOpen: false, snackbarMsg: '' };
+    this.state = { deps: [], snackbarOpen: false, snackbarMsg: '' };
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    fetch('https://localhost:44351/api/Department')
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({ deps: data });
+      });
   }
 
   snackbarClose = (e) => {
@@ -17,27 +25,27 @@ export class AddDepartmentModal extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    fetch('https://localhost:44351/api/Department', {
+    fetch('https://localhost:44351/api/Employee', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        DepartmentID: null,
-        DepartmentName: e.target.DepartmentName.value,
+        EmployeeID: null,
+        EmployeeName: e.target.EmployeeName.value,
+        Department: e.target.Department.value,
+        MailID: e.target.MailID.value,
+        DOJ: e.target.DOJ.value,
       }),
     })
       .then((res) => res.json())
       .then(
         (result) => {
           this.setState({ snackbarOpen: true, snackbarMsg: result });
-          //   alert(result);
         },
         (error) => {
           this.setState({ snackbarOpen: true, snackbarMsg: 'Failed to add' });
-
-          //   alert('Failed to add');
         }
       );
   }
@@ -53,20 +61,48 @@ export class AddDepartmentModal extends Component {
         >
           <Modal.Header closeButton>
             <Modal.Title id='contained-modal-title-vcenter'>
-              Add Department
+              Add Employee
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Row>
               <Col sm={6}>
                 <Form onSubmit={this.handleSubmit}>
-                  <Form.Group controlId='DepartmentName'>
-                    <Form.Label>Department Name: </Form.Label>
+                  <Form.Group controlId='EmployeeName'>
+                    <Form.Label>Employee Name: </Form.Label>
                     <Form.Control
                       type='text'
-                      name='DepartmentName'
+                      name='EmployeeName'
                       required
-                      placeholder='Insert department name...'
+                      placeholder='Insert employee name...'
+                    />
+                  </Form.Group>
+                  <Form.Group controlId='Department'>
+                    <Form.Label>Department Name: </Form.Label>
+                    <Form.Control as='select'>
+                      {this.state.deps.map((dep) => (
+                        <option key={dep.DepartmentID}>
+                          {dep.DepartmentName}
+                        </option>
+                      ))}
+                    </Form.Control>
+                  </Form.Group>
+                  <Form.Group controlId='MailID'>
+                    <Form.Label>Email: </Form.Label>
+                    <Form.Control
+                      type='text'
+                      name='MailID'
+                      required
+                      placeholder='Insert email...'
+                    />
+                  </Form.Group>
+                  <Form.Group controlId='DOJ'>
+                    <Form.Label>Date of joining: </Form.Label>
+                    <Form.Control
+                      type='date'
+                      name='DOJ'
+                      required
+                      placeholder='Insert Date of joining...'
                     />
                   </Form.Group>
                   <Form.Group>

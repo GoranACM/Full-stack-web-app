@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
 
 import { Button, ButtonToolbar } from 'react-bootstrap';
-import { AddDepartmentModal } from './AddDepartmentModal';
-import { EditDepartmentModal } from './EditDepartmentModal';
+import { AddEmployeeModal } from './AddEmployeeModal';
+import { EditEmployeeModal } from './EditEmployeeModal';
 export class Employee extends Component {
   constructor(props) {
     super(props);
@@ -39,7 +39,7 @@ export class Employee extends Component {
   }
 
   render() {
-    const { emps, empid, empname } = this.state;
+    const { emps, empid, empname, depmt, mailid, doj } = this.state;
 
     let addModalClose = () => this.setState({ addModalShow: false });
     let editModalClose = () => this.setState({ editModalShow: false });
@@ -75,6 +75,9 @@ export class Employee extends Component {
                           editModalShow: true,
                           empid: emp.EmployeeID,
                           empname: emp.EmployeeName,
+                          depmt: emp.Department,
+                          mailid: emp.MailID,
+                          doj: emp.DOJ,
                         })
                       }
                     >
@@ -87,11 +90,14 @@ export class Employee extends Component {
                     >
                       Delete
                     </Button>
-                    <EditDepartmentModal
+                    <EditEmployeeModal
                       show={this.state.editModalShow}
                       onHide={editModalClose}
-                      depid={empid}
-                      depname={empname}
+                      empid={empid}
+                      empname={empname}
+                      depmt={depmt}
+                      mailid={mailid}
+                      doj={doj}
                     />
                   </ButtonToolbar>
                 </td>
@@ -106,7 +112,7 @@ export class Employee extends Component {
           >
             Add Employee
           </Button>
-          <AddDepartmentModal
+          <AddEmployeeModal
             show={this.state.addModalShow}
             onHide={addModalClose}
           />
