@@ -23,8 +23,20 @@ export class Department extends Component {
       });
   }
 
-  componentWillUpdate() {
+  componentDidUpdate() {
     this.refreshList();
+  }
+
+  deleteDep(depid) {
+    if (window.confirm('Are you sure you want to delete?')) {
+      fetch('https://localhost:44351/api/Department/' + depid, {
+        method: 'DELETE',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+    }
   }
 
   render() {
@@ -62,6 +74,13 @@ export class Department extends Component {
                       }
                     >
                       Edit
+                    </Button>
+                    <Button
+                      className='mr-2'
+                      variant='danger'
+                      onClick={() => this.deleteDep(dep.DepartmentID)}
+                    >
+                      Delete
                     </Button>
                     <EditDepartmentModal
                       show={this.state.editModalShow}
