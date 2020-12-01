@@ -58,7 +58,7 @@ export class EditDepartmentModal extends Component {
               <Col sm={6}>
                 <Form onSubmit={this.handleSubmit}>
                   <Form.Group controlId='DepartmentName'>
-                    <Form.Label>Department ID: </Form.Label>
+                    <Form.Label>Department ID:</Form.Label>
                     <Form.Control
                       type='text'
                       name='DepartmentID'
@@ -68,7 +68,7 @@ export class EditDepartmentModal extends Component {
                     />
                   </Form.Group>
                   <Form.Group controlId='DepartmentName'>
-                    <Form.Label>Department Name: </Form.Label>
+                    <Form.Label>Department Name:</Form.Label>
                     <Form.Control
                       type='text'
                       name='DepartmentName'
