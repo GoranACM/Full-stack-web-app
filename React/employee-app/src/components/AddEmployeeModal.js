@@ -69,7 +69,7 @@ export class AddEmployeeModal extends Component {
               <Col sm={6}>
                 <Form onSubmit={this.handleSubmit}>
                   <Form.Group controlId='EmployeeName'>
-                    <Form.Label>Employee Name: </Form.Label>
+                    <Form.Label>Employee Name:</Form.Label>
                     <Form.Control
                       type='text'
                       name='EmployeeName'
@@ -78,7 +78,7 @@ export class AddEmployeeModal extends Component {
                     />
                   </Form.Group>
                   <Form.Group controlId='Department'>
-                    <Form.Label>Department Name: </Form.Label>
+                    <Form.Label>Department Name:</Form.Label>
                     <Form.Control as='select'>
                       {this.state.deps.map((dep) => (
                         <option key={dep.DepartmentID}>
